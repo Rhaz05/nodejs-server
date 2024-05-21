@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const { Select } = require("../repository/emsdb");
+const { DataModeling } = require("../repository/dbmodel");
 
 // @des Get all access
 // @route GET /access
@@ -7,6 +8,7 @@ const { Select } = require("../repository/emsdb");
 const getAllAccess = asyncHandler(async (req, res) => {
   let sql = "select * from master_access";
   Select(sql, (err, result) => {
+    let data = DataModeling(result, "ma_");
     if (err) {
       res.json({
         msg: err,
@@ -15,7 +17,7 @@ const getAllAccess = asyncHandler(async (req, res) => {
     if (result != 0) {
       res.json({
         msg: "success",
-        data: result,
+        data: data,
       });
     } else {
       res.json(JsonDataResponse(result));

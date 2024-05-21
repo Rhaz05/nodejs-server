@@ -1,4 +1,18 @@
-const { DataModel, RawDataModel } = require("./modelclass");
+class DataModel {
+  constructor(data, prefix) {
+    for (const key in data) {
+      this[key.replace(prefix, "")] = data[key];
+    }
+  }
+}
+
+class RawDataModel {
+  constructor(data) {
+    for (const key in data) {
+      this[key] = data[key];
+    }
+  }
+}
 
 exports.DataModeling = (data, prefix) => {
   let result = [];

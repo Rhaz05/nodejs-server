@@ -2,13 +2,12 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const path = require("path");
-const PORT = process.env._PORT || 3050;
+const PORT = 3070;
 const { logger } = require("./middleware/logger");
 const { errorHandler } = require("./middleware/errorHandler");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const corsOptions = require("./config/corsOptions");
-const { SetMongo } = require("./repository/mogoose");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 
@@ -19,8 +18,6 @@ app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
 app.use(bodyParser.json({ limit: "50mb" }));
-
-SetMongo(app);
 
 app.use(cors(corsOptions));
 
